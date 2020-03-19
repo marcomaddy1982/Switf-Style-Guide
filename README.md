@@ -1,6 +1,8 @@
 # Switf-Style-Guide
 
-- [Heading](#heading)
+##### Table of Contents
+
+1 [Heading](#heading)
 * [Sub-heading](#sub-heading)
 + [Sub-sub-heading](#sub-sub-heading)
 - [Heading](#heading-1)
