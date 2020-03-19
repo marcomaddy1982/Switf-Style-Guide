@@ -2,9 +2,9 @@
 
 ## Table of Contents
 
-[1 General](#general)
-[2 Naming](#naming)
-    [2.1 General](#naming-general)
+- [1 General](#general)
+- [2 Naming](#naming)
+    - [2.1 General](#naming-general)
 - [Heading](#heading-1)
 * [Sub-heading](#sub-heading-1)
 + [Sub-sub-heading](#sub-sub-heading-1)
