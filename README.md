@@ -19,11 +19,11 @@
 
 <!-- toc -->
 
-## 1 general
+## 1 General
 
 This is an h1 heading
 
-## 2 naming
+## 2 Naming
 
 This is an h2 heading
 
