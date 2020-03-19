@@ -14,12 +14,11 @@
 
 - Use Swift types whenever possible (Array, Dictionary, Set, String, etc.) instead of types from Objective-C. Many Objective-C types can be automatically converted to Swift types and vice versa.
 
-// WRONG
 ```swift
+    // NOT PREFERRED
     let nameLabelText = NSString(format: "%@/%@", firstName, lastName)
-```
-// RIGHT
-```swift
+
+    // PREFERRED
     let nameLabelText = "\(firstName)/\(lastName)"
     let alsoNameLabelText = firstName + "/" + lastName
 ```
@@ -27,8 +26,23 @@
 - Swift Collection Types: Do not make NSArray, NSDictionary, and NSSet properties or variables. If you need to use a specific method only found on a Foundation collection, cast your Swift type in order to use that method.
 
 ```swift
-    struct Animal {
-        let nickName : String?
+    // NOT PREFERRED
+    var objectArray: NSArray = NSArray()
+    let names: AnyObject? = objectArray.value(forKeyPath: "key")
+
+    // PREFERRED
+    var objectArray = [[String: AnyObject]]()
+    let values: AnyObject? = (objectArray as NSArray).value(forKeyPath: "key")
+    }
+```
+
+or 
+
+```swift
+    // PREFERRED
+    var objectArray = [[String: AnyObject]]()
+    let values: [String] = objectArray.compactMap { object in
+        return object["key] as? String
     }
 ```
 
