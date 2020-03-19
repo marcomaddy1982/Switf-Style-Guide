@@ -36,7 +36,7 @@
     }
 ```
 
-or 
+    or 
 
 ```swift
     // PREFERRED
