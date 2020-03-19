@@ -4,7 +4,7 @@
 
 - [General](#general)
 - [Naming](#naming)
-    - [General](#naming-general)
+    - [General](#general)
 - [Heading](#heading-1)
 * [Sub-heading](#sub-heading-1)
 + [Sub-sub-heading](#sub-sub-heading-1)
