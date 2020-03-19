@@ -288,7 +288,7 @@ or
 
 ### Definitions <a name="style-definitions"></a>
 
-- For `variable`, `constant` and `class` definition: Add the colon (`:`) immediately after an identifier, followed by a space
+- For `variable`, `constant` and `class` definition: Add the colon (`:`) immediately after an identifier, followed by a space.
 
 ```swift
     // NOT PREFERRED
@@ -313,7 +313,7 @@ or
     }
 ```
 
-- For `method` and `closure`: Place a space before and after the return arrow
+- For `method` and `closure`: Place a space before and after the return arrow.
 
 ```swift
     // NOT PREFERRED
@@ -347,7 +347,7 @@ or
     }
 ```
 
-- For `method`: Omit `Void` return types
+- For `method`: Omit `Void` return types.
 
 ```swift
     // NOT PREFERRED
@@ -373,7 +373,7 @@ or
     }
 ```
 
-- For `closure`: Name unused closure parameters as underscores (`_`)
+- For `closure`: Name unused closure parameters as underscores (`_`).
 
 ```swift
     // NOT PREFERRED
@@ -387,7 +387,7 @@ or
     }
 ```
 
-- `Single-line closures` should have a space inside each brace
+- `Single-line closures` should have a space inside each brace.
 
 ```swift
     // NOT PREFERRED
@@ -433,6 +433,57 @@ or
 ```
 
 ### Spacing <a name="style-spacing"></a>
+
+- Don't add useless new lines when it is not necessary.
+
+```swift
+    // WRONG
+    class ClassA 
+    {
+
+        init() 
+        {
+            // ...
+        }
+
+        private var property1: String?
+
+        private var property2: String?
+
+        // ...
+
+        private func someMethod() {
+        
+            if property1.isEmpty 
+            {
+                // ...
+            }    
+            else 
+            {
+                // ...
+            } 
+        }
+    }
+
+    // RIGHT
+    class ClassA {
+        init() {
+            // ...
+        }
+
+        private var property1: String?
+        private var property2: String?
+        
+        // ...
+        private func someMethod() {
+            if property1.isEmpty {
+                // ...
+            } else {
+                // ...
+            } 
+        }
+    }
+```
 
 ### Indentation <a name="style-indentation"></a>
 
