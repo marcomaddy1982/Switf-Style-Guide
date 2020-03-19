@@ -225,7 +225,7 @@ or
 
 ### General <a name="style-general"></a>
 
-- Prefer `let` to `var` whenever possible
+- Prefer `let` to `var` whenever possible.
 
 - Don't use types when they are inferred.
 
@@ -252,7 +252,7 @@ or
     }
 ```
 
-- Don't use self when it's not necessary for disambiguation.
+- Don't use `self` when it's not necessary for disambiguation.
 
 ```swift
     final class Conversation {
@@ -285,35 +285,6 @@ or
         }
     }
 ```
-final class Conversation {
-
-init(conversationId: Int, clientId: Int, isGroup: Bool) {
-// WRONG
-self.conversationId = conversationId
-self.clientId = clientId
-self.hasMultipleUser = isGroup
-
-// RIGHT
-self.conversationId = conversationId
-self.clientId = clientId
-hasMultipleUser = isGroup
-}
-
-private let conversationId: Bool
-private let clientId: Bool
-private var hasMultipleUser: Bool
-
-private func updateClientId(_ clientId: Int) {
-// RIGHT
-self.clientId = clientId
-
-// WRONG
-self.start()
-
-// RIGHT
-start()
-}
-}
 
 ### Definitions <a name="style-definitions"></a>
 
