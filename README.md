@@ -5,45 +5,35 @@
 - [General](#general)
 - [Naming](#naming)
     - [General](#naming-general)
-- [Heading](#heading-1)
-* [Sub-heading](#sub-heading-1)
-+ [Sub-sub-heading](#sub-sub-heading-1)
-- [Heading](#heading-2)
-* [Sub-heading](#sub-heading-2)
-+ [Sub-sub-heading](#sub-sub-heading-2)
+    - [File](#naming-file)
+    - [Struct, Class, Protocol](#naming-struct-class-protocol)
+    - [Variable, Constant](#naming-variable-constant)
+    - [Method, Function](#naming-method-function)
 
 ## General
 
-This is an h1 heading
+This is General
 
 ## Naming
 
-This is an h2 heading
+This is Naming
 
 ### General <a name="naming-general"></a>
 
-This is an h3 heading
+This is naming-general
 
-## Heading
+### File <a name="naming-file"></a>
 
-This is an h1 heading
+This is naming-file
 
-### Sub-heading
+### Struct, Class, Protocol <a name="naming-struct-class-protocol"></a>
 
-This is an h2 heading
+This is naming-struct-class-protocol
 
-#### Sub-sub-heading
+### Variable, Constant <a name="naming-variable-constant"></a>
 
-This is an h3 heading
+This is naming-variable-constant
 
-## Heading
+### Method, Function <a name="naming-method-function"></a>
 
-This is an h1 heading
-
-### Sub-heading
-
-This is an h2 heading
-
-#### Sub-sub-heading
-
-This is an h3 heading
+This is naming-method-function
