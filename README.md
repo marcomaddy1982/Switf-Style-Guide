@@ -14,6 +14,16 @@
 
 - Use Swift types whenever possible (Array, Dictionary, Set, String, etc.) instead of types from Objective-C. Many Objective-C types can be automatically converted to Swift types and vice versa.
 
+// WRONG
+```swift
+    let nameLabelText = NSString(format: "%@/%@", firstName, lastName)
+```
+// RIGHT
+```swift
+    let nameLabelText = "\(firstName)/\(lastName)"
+    let alsoNameLabelText = firstName + "/" + lastName
+```
+
 - Swift Collection Types: Do not make NSArray, NSDictionary, and NSSet properties or variables. If you need to use a specific method only found on a Foundation collection, cast your Swift type in order to use that method.
 
 ```swift
