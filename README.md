@@ -288,6 +288,144 @@ or
 
 ### Definitions <a name="style-definitions"></a>
 
+- For `variable`, `constant` and `class` definition: Add the colon `:` immediately after an identifier, followed by a space
+
+```swift
+    // NOT PREFERRED
+    let value : Int?
+    var value1 : String?
+    var dict = [String:String]()
+    var dict = [String : String]()
+
+    // PREFERRED
+    let value: Int?
+    var value1: String?
+    var dict = [String: String]()
+
+    // NOT PREFERRED
+    class ClassA : SuperClassA {
+        // ...
+    }
+
+    // PREFERRED
+    class ClassA: SuperClassA {
+        // ...
+    }
+```
+
+- For `method` and `closure`: Place a space before and after the return arrow
+
+```swift
+    // NOT PREFERRED
+    func someMethod()->String {
+        // ...
+    }
+
+    // PREFERRED
+    func someMethod() -> String {
+        // ...
+    }
+
+    // NOT PREFERRED
+    func someMethod(completion: ()->Void) {
+        // ...
+    }
+
+    // PREFERRED
+    func someMethod(completion: () -> Void) {
+        // ...
+    }
+
+    // NOT PREFERRED
+    func someMethod(completion: ()->Void)->String {
+        // ...
+    }
+
+    // PREFERRED
+    func someMethod(completion: () -> Void) -> String {
+        // ...
+    }
+```
+
+- For `method`: Omit `Void` return types
+
+```swift
+    // NOT PREFERRED
+    func someMethod() -> Void {
+        // ...
+    }
+
+    // PREFERRED
+    func someMethod() {
+        // ...
+    }
+
+    - For closure: in return types use () instead Void
+
+    // NOT PREFERRED
+    func someMethod(completion: () -> Void) {
+        // ...
+    }
+
+    // PREFERRED
+    func someMethod(completion: () -> ())) {
+        // ...
+    }
+```
+
+- For closure: Name unused closure parameters as underscores (_)
+
+// WRONG
+someMethod() { argument1, argument2 in
+print(argument2)
+}
+
+// RIGHT
+someMethod() { _, argument2 in
+print(argument2)
+}
+
+- Single-line closures should have a space inside each brace
+
+// WRONG
+let result = array.filter {$0.isSomething == true}.map {$0.someMethod() }
+
+// RIGHT
+let result = array.filter { $0.isSomething == true }.map { $0.someMethod() }
+
+- Name members of tuples and enum case parameters for extra clarity. 
+
+// WRONG
+func someMethod() -> (String, String) {
+return (4, 4)
+}
+
+// RIGHT
+func someMethod() -> (firstName: String, lastName: String) {
+return (firstName: 4, lastName: 4)
+}
+
+// RIGHT
+func someMethod() -> (firstName: String, lastName: String) {
+let firstName = "firstName"
+let lastName = "lastName"
+return (firstName, lastName)
+}
+
+// WRONG
+enum WebError {
+case unreachable(URL)
+case unauthorized
+case serverError(Int)
+}
+
+// RIGHT
+enum WebError {
+case unreachable(url: URL)
+case unauthorized
+case serverError(code: Int)
+}
+
 ### Spacing <a name="style-spacing"></a>
 
 ### Indentation <a name="style-indentation"></a>
