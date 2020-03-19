@@ -1,10 +1,10 @@
 # Switf-Style-Guide
 
-##### Table of Contents
+## Table of Contents
 
-1 [Heading](#heading)
-* [Sub-heading](#sub-heading)
-+ [Sub-sub-heading](#sub-sub-heading)
+1 [General](#general)
+2 [Naming](#naming)
+    2.1 [General](#naming-general)
 - [Heading](#heading-1)
 * [Sub-heading](#sub-heading-1)
 + [Sub-sub-heading](#sub-sub-heading-1)
@@ -19,15 +19,15 @@
 
 <!-- toc -->
 
-## Heading
+## 1 general
 
 This is an h1 heading
 
-### Sub-heading
+## 2 naming
 
 This is an h2 heading
 
-#### Sub-sub-heading
+### 2.1 naming-general
 
 This is an h3 heading
 
