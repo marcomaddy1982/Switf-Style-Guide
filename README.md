@@ -391,7 +391,7 @@ or
 
 ```swift
     // NOT PREFERRED
-    let result = array.filter {$0.isSomething == true}.map {$0.someMethod() }
+    let result = array.filter {$0.isSomething == true}.map {$0.someMethod()}
 
     // PREFERRED
     let result = array.filter { $0.isSomething == true }.map { $0.someMethod() }
@@ -434,10 +434,10 @@ or
 
 ### Spacing <a name="style-spacing"></a>
 
-- Don't add useless new lines when it is not necessary.
+- Don't add useless `new lines` when it is not necessary.
 
 ```swift
-    // WRONG
+    // NOT PREFERRED
     class ClassA 
     {
 
@@ -465,7 +465,7 @@ or
         }
     }
 
-    // RIGHT
+    // PREFERRED
     class ClassA {
         init() {
             // ...
@@ -474,7 +474,6 @@ or
         private var property1: String?
         private var property2: String?
         
-        // ...
         private func someMethod() {
             if property1.isEmpty {
                 // ...
@@ -486,6 +485,81 @@ or
 ```
 
 ### Indentation <a name="style-indentation"></a>
+
+- For `function` and  `method` definition that has many parameters use `Xcode` (CTRL-I) indentation.
+
+```swift
+    // NOT PREFERRED
+    func someMethod(param1: String, param2: String, param3: Int, param4: Int, param5: Double, param6: Double) -> String {
+        // ...
+    }
+
+    // PREFERRED 
+    func someMethod(param1: String,
+                    param2: String,
+                    param3: Int,
+                    param4: Int, 
+                    param5: Double, 
+                    param6: Double) -> String {
+                    // ...
+    }
+```
+
+- When calling a function that has many parameters, put each argument except the first on a separate line aligned with the first parameter.
+
+```swift
+    // NOT PREFERRED
+    let result = someMethod(param1: "string", param2: "string", param3: 100, param4: 200, param5: 10.1, param6: 10.2) 
+
+    // PREFERRED
+    let result = someMethod(param1: "string", 
+                            param2: "string",
+                            param3: 100, 
+                            param4: 200, 
+                            param5: 10.1, 
+                            param6: 10.2) 
+```
+
+- For `Array` and `Dictionary` defined with many elements, put each element on a separate line and add a trailing comma (`,`) also on the last element
+
+```swift
+    // NOT PREFERRED
+    let array = [ element1, element2, element3, element4, element5]
+    let dictionary = [ key1: value1, key2: value2, key3: value3, key4: value4, key5: value5]
+
+    // PREFERRED 
+    let array = [ 
+        element1,
+        element2, 
+        element3, 
+        element4,
+        element5,
+    ]
+    
+    let dictionary = [
+        key1: value1, 
+        key2: value2, 
+        key3: value3, 
+        key4: value4, 
+        key5: value5,
+    ]
+```
+
+- Use `one line` for `short ternary operator`, instead use `multiple line`  for `long ternary operator`.
+
+```swift
+    // NOT PREFERRED
+    let value = isLoading 
+                ? 100
+                : 200
+    let dictionary = isLoading ? someMethod(param1: "string1", param2: "string2") : otherMethod(param1: "string1", param2: "string2") 
+
+    // PREFERRED 
+    let value = isLoading ? 100 : 200
+    let dictionary = isLoading 
+                        ? someMethod(param1: "string1", param2: "string2") 
+                        : otherMethod(param1: "string1", param2: "string2") 
+```
 
 ## Source
 
