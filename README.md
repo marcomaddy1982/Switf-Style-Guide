@@ -13,7 +13,7 @@
 
 ## General
 
-- Use Swift types whenever possible (`Array`, `Dictionary`, `Set`, `String`, etc.) instead of types from Objective-C. Many Objective-C types can be automatically converted to Swift types and vice versa.
+- Use `Swift` types whenever possible (`Array`, `Dictionary`, `Set`, `String`, etc.) instead of types from `Objective-C`. Many Objective-C types can be automatically converted to Swift types and vice versa.
 
 ```swift
     // NOT PREFERRED
@@ -24,7 +24,7 @@
     let alsoNameLabelText = firstName + "/" + lastName
 ```
 
-- Swift Collection Types: Do not make `NSArray`, `NSDictionary`, and `NSSet` properties or variables. If you need to use a specific method only found on a Foundation collection, cast your Swift type in order to use that method.
+- Swift Collection Types: Do not make `NSArray`, `NSDictionary`, and `NSSet` properties or variables. If you need to use a specific method only found on a `Foundation` collection, cast your Swift type in order to use that method.
 
 ```swift
     // NOT PREFERRED
@@ -75,16 +75,16 @@ or
 
 ### File <a name="naming-file"></a>
 
-- A file containing a single type MyType is named MyType.swift.
-- A file containing a type MyType and some top-level helper functions is also named MyType.swift. 
-- A file containing a single extension to a type MyType that adds conformance to a protocol MyProtocol is named MyType+MyProtocol.swift.
-- A file containing multiple extensions to a type MyType that add conformances, nested types, or other functionality to a type can be named more generally, as long as it is prefixed with MyType+; for example, MyType+Extentions.swift.
-- A file containing related declarations that are not otherwise scoped under a common type or namespace (such as a collection of global mathematical functions) can be named descriptively; for example, Math.swift.
-- There is no need for Objective-C style prefixing in Swift.
+- A file containing a single type `MyType` is named `MyType.swift`.
+- A file containing a type `MyType` and some top-level helper functions is also named `MyType.swift`. 
+- A file containing a single extension to a type `MyType` that adds conformance to a protocol MyProtocol is named `MyType+MyProtocol.swift`.
+- A file containing multiple extensions to a type `MyType` that add conformances, nested types, or other functionality to a type can be named more generally, as long as it is prefixed with `MyType+`; for example, `MyType+Extentions.swift`.
+- A file containing related declarations that are not otherwise scoped under a common type or namespace (such as a collection of global mathematical functions) can be named descriptively; for example, `Math.swift`.
+- There is no need for `Objective-C` style prefixing in `Swift`.
 
 ### Struct, Class, Protocol <a name="naming-struct-class-protocol"></a>
 
-- Use PascalCase for struct, enum, class, typedef, associatedtype names.
+- Use `PascalCase` for `struct`, `enum`, `class`, `typedef`, `associatedtype` names.
 
 ```swift
     // NOT PREFERRED
@@ -116,7 +116,7 @@ or
     let myDog = Dog()
 ```
 
-- Do not add a class prefix as in Objective-C-style. (Source Airbnb)
+- Do not add a class prefix as in `Objective-C` style.
 
 ```swift
     // NOT PREFERRED
