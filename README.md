@@ -288,7 +288,7 @@ or
 
 ### Definitions <a name="style-definitions"></a>
 
-- For `variable`, `constant` and `class` definition: Add the colon `:` immediately after an identifier, followed by a space
+- For `variable`, `constant` and `class` definition: Add the colon (`:`) immediately after an identifier, followed by a space
 
 ```swift
     // NOT PREFERRED
@@ -373,58 +373,64 @@ or
     }
 ```
 
-- For closure: Name unused closure parameters as underscores (_)
+- For `closure`: Name unused closure parameters as underscores (`_`)
 
-// WRONG
-someMethod() { argument1, argument2 in
-print(argument2)
-}
+```swift
+    // NOT PREFERRED
+    someMethod() { argument1, argument2 in
+        print(argument2)
+    }
 
-// RIGHT
-someMethod() { _, argument2 in
-print(argument2)
-}
+    // PREFERRED
+    someMethod() { _, argument2 in
+        print(argument2)
+    }
+```
 
-- Single-line closures should have a space inside each brace
+- `Single-line closures` should have a space inside each brace
 
-// WRONG
-let result = array.filter {$0.isSomething == true}.map {$0.someMethod() }
+```swift
+    // NOT PREFERRED
+    let result = array.filter {$0.isSomething == true}.map {$0.someMethod() }
 
-// RIGHT
-let result = array.filter { $0.isSomething == true }.map { $0.someMethod() }
+    // PREFERRED
+    let result = array.filter { $0.isSomething == true }.map { $0.someMethod() }
+```
 
-- Name members of tuples and enum case parameters for extra clarity. 
+- Name members of  `tuples` and `enum` parameters for extra clarity. 
 
-// WRONG
-func someMethod() -> (String, String) {
-return (4, 4)
-}
+```swift
+    // NOT PREFERRED
+    func someMethod() -> (String, String) {
+        return (4, 4)
+    }
 
-// RIGHT
-func someMethod() -> (firstName: String, lastName: String) {
-return (firstName: 4, lastName: 4)
-}
+    // PREFERRED
+    func someMethod() -> (firstName: String, lastName: String) {
+        return (firstName: 4, lastName: 4)
+    }
 
-// RIGHT
-func someMethod() -> (firstName: String, lastName: String) {
-let firstName = "firstName"
-let lastName = "lastName"
-return (firstName, lastName)
-}
+    // PREFERRED
+    func someMethod() -> (firstName: String, lastName: String) {
+        let firstName = "firstName"
+        let lastName = "lastName"
+        return (firstName, lastName)
+    }
 
-// WRONG
-enum WebError {
-case unreachable(URL)
-case unauthorized
-case serverError(Int)
-}
+    // NOT PREFERRED
+    enum WebError {
+        case unreachable(URL)
+        case unauthorized
+        case serverError(Int)
+    }
 
-// RIGHT
-enum WebError {
-case unreachable(url: URL)
-case unauthorized
-case serverError(code: Int)
-}
+    // PREFERRED
+    enum WebError {
+        case unreachable(url: URL)
+        case unauthorized
+        case serverError(code: Int)
+    }
+```
 
 ### Spacing <a name="style-spacing"></a>
 
