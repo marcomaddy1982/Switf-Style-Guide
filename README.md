@@ -164,8 +164,57 @@ or
 
 ### Method, Function <a name="naming-method-function"></a>
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+- Use `camelCase` (initial lowercase letter) for `function`, `method`, `argument names`,  etc.
+- Acronyms in names (e.g. URL) should be all-caps except when it’s the start of a name that would otherwise be `lowerCamelCase`, in which case it should be uniformly lower-cased.
 
-Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.
+```swift
+    // NOT PREFERRED
+    class UrlValidator {
+
+        func isValidUrl(_ URL: URL) -> Bool {
+            // ...
+        }
+    }
+
+    let URLValidator = UrlValidator()
+
+    // PREFERRED
+    class URLValidator {
+
+        func isValidURL(_ url: URL) -> Bool {
+            // ...
+        }
+    }
+
+    let urlValidator = URLValidator()
+```
+
+- Event-handling functions should be named like past-tense sentences.
+
+```swift
+    // NOT PREFERRED
+    class SignInViewController: LogInProtocol {
+
+        private func handleLoginButtonTap() {
+            // ...
+        }
+
+        private func userChanged() {
+            // ...
+        }
+    }
+
+    // PREFERRED
+    class SignViewController: LogInProtocol {
+
+        private func didTapLogInButton() {
+            // ...
+        }
+
+        private func userDidChange() {
+            // ...
+        }
+    }
+```
 
 ## Source
