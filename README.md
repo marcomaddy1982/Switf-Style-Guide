@@ -219,4 +219,9 @@ or
 
 ## Source
 
-- [Swift Official:](https://swift.org/documentation/api-design-guidelines/)
+- [Swift Official](https://swift.org/documentation/api-design-guidelines/)
+- [Google](https://google.github.io/swift/#file-names)
+- [AirBnb](https://github.com/airbnb/swift#use-implicit-types)
+- [LinkedIn](https://github.com/linkedin/swift-style-guide)
+- [Vokal Engineering](https://engineering.vokal.io/iOS/CodingStandards/Swift.md.html)
+- [Raywenderlich](https://github.com/raywenderlich/swift-style-guide)
