@@ -194,7 +194,7 @@ or
     let urlValidator = URLValidator()
 ```
 
-- Event-handling functions should be named like past-tense sentences.
+- `Event-handling functions` should be named like `past-tense sentences`.
 
 ```swift
     // NOT PREFERRED
@@ -224,6 +224,96 @@ or
 ## Style
 
 ### General <a name="style-general"></a>
+
+- Prefer `let` to `var` whenever possible
+
+- Don't use types when they are inferred.
+
+```swift
+    // NOT PREFERRED
+    let name: String = "Name"
+    let user: User = User()
+
+    // PREFERRED
+    let name = "Name"
+    let user = User()
+
+    enum UserType {
+        case normal
+        case premioum
+    }
+
+    func someUser() -> UserType {
+        // NOT PREFERRED
+        return UserType.left
+
+        // PREFERRED
+        return .left
+    }
+```
+
+- Don't use self when it's not necessary for disambiguation.
+
+```swift
+    final class Conversation {
+
+    init(conversationId: Int, clientId: Int, isGroup: Bool) {
+        // NOT PREFERRED
+        self.conversationId = conversationId
+        self.clientId = clientId
+        self.hasMultipleUser = isGroup
+
+        // PREFERRED
+        self.conversationId = conversationId
+        self.clientId = clientId
+        hasMultipleUser = isGroup
+    }
+
+    private let conversationId: Bool
+    private let clientId: Bool
+    private var hasMultipleUser: Bool
+
+    private func updateClientId(_ clientId: Int) {
+        // PREFERRED
+        self.clientId = clientId
+
+        // NOT PREFERRED
+        self.start()
+
+        // PREFERRED
+        start()
+        }
+    }
+```
+final class Conversation {
+
+init(conversationId: Int, clientId: Int, isGroup: Bool) {
+// WRONG
+self.conversationId = conversationId
+self.clientId = clientId
+self.hasMultipleUser = isGroup
+
+// RIGHT
+self.conversationId = conversationId
+self.clientId = clientId
+hasMultipleUser = isGroup
+}
+
+private let conversationId: Bool
+private let clientId: Bool
+private var hasMultipleUser: Bool
+
+private func updateClientId(_ clientId: Int) {
+// RIGHT
+self.clientId = clientId
+
+// WRONG
+self.start()
+
+// RIGHT
+start()
+}
+}
 
 ### Definitions <a name="style-definitions"></a>
 
