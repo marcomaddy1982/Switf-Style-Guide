@@ -10,6 +10,11 @@
     - [Variable, Constant](#naming-variable-constant)
     - [Method, Function](#naming-method-function)
     - [Source](#source)
+- [Style](#style) 
+    - [General](#style-general)
+    - [Definitions](#style-definitions)
+    - [Spacing](#style-spacing)
+    - [Indentation](#style-indentation)
 
 ## General
 
@@ -216,6 +221,15 @@ or
         }
     }
 ```
+## Style
+
+### General <a name="style-general"></a>
+
+### Definitions <a name="style-definitions"></a>
+
+### Spacing <a name="style-spacing"></a>
+
+### Indentation <a name="style-indentation"></a>
 
 ## Source
 
