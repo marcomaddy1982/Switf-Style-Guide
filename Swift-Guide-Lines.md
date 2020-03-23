@@ -737,8 +737,6 @@ or
 - As first write the `access modifier` keyword when it is needed.
 
 ```swift
-// OPTIONAL CHAINING:
-
     // NOT PREFERRED
     static private let animationDuration: Float
 
