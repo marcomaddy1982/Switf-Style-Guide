@@ -591,9 +591,9 @@ or
 - Avoid `force unwrapping` optionals by using `!` or `as!`
 - Safely unwrap the optional first by using something like `guard let`, `if let`, `guard let as?`, `if let as?`, and `optional chaining`
 
-   - Unwrap:
-
 ```swift
+    // UNWRAP
+    
     // NOT PREFERRED
     func someMethod() {
         let url = URL(string: "http://www.example.com/")! 
@@ -607,9 +607,10 @@ or
         }
     }
 ```
-    - Downcast:
-
+    
 ```swift
+    // DOWNCAST:
+
     // NOT PREFERRED
     func someMethod() {
         let downcastedObj = object as! Subclass
@@ -625,9 +626,10 @@ or
         otherObject.property = downcastedObj
     }
 ```
-    - Optional chaining:
 
 ```swift
+    // OPTIONAL CHAINING:
+
     // NOT PREFERRED
     delegate!.someMethod()
 
