@@ -20,6 +20,7 @@
     - [Pyramid of Doom](#optionals-pyramid-doom)
     - [Unwrapping Multiple Optionals](#optionals-unwrapping-multiple-optionals)
     - [Error Handling](#optionals-error-handling)
+- [Access Modifiers](#access-modifiers)
 - [References](#references)
 
 ## General
@@ -730,6 +731,24 @@ or
         }
     }
 ```
+
+## Access Modifiers
+
+- As first write the `access modifier` keyword when it is needed.
+
+```swift
+// OPTIONAL CHAINING:
+
+    // NOT PREFERRED
+    static private let animationDuration: Float
+
+    // PREFERRED
+    private static let animationDuration: Float
+```
+
+- Prefer `public` to `open` and `private` to `fileprivate` unless you need that behavior.
+- Do not write the `internal` access modifier keyword since it is the default.
+- Don't repeat the access modifier when `overriding` a method.
 
 ## References
 
