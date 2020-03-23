@@ -21,6 +21,7 @@
     - [Unwrapping Multiple Optionals](#optionals-unwrapping-multiple-optionals)
     - [Error Handling](#optionals-error-handling)
 - [Access Modifiers](#access-modifiers)
+- [Loops](#loops)
 - [References](#references)
 
 ## General
@@ -747,6 +748,11 @@ or
 - Prefer `public` to `open` and `private` to `fileprivate` unless you need that behavior.
 - Do not write the `internal` access modifier keyword since it is the default.
 - Don't repeat the access modifier when `overriding` a method.
+
+## Loops
+- Avoid the use of `forEach` except for simple `one line closures`. Prefer the of the `enumerated()` function to loop over a sequence.
+- Use `map` when transforming`Arrays`, `compactMap` for `Arrays of Optionals` or `flatMap` for `Arrays of Arrays`.
+- If you are not performing a transform, or if there are side effects do not use `map/flatmap`; use a `for in loop` instead. [see more](http://www.mokacoding.com/blog/when-to-use-map-flatmap-for/)
 
 ## References
 
