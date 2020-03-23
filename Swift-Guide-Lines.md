@@ -580,16 +580,12 @@ or
                         : otherMethod(param1: "string1", param2: "string2") 
 ```
 
-## Optionals:
-
-- [Pyramid of Doom](#optionals-pyramid-doom)
-- [Unwrapping Multiple Optionals](#optionals-unwrapping-multiple-optionals)
-- [Error Handling](#optionals-error-handling)
+## Optionals
 
 ### Force Unwrapping <a name="optionals-force-unwrapping"></a>
 
-- Avoid `force unwrapping` optionals by using `!` or `as!`
-- Safely unwrap the optional first by using something like `guard let`, `if let`, `guard let as?`, `if let as?`, and `optional chaining`
+- Avoid `force unwrapping` optionals by using `!` or `as!`.
+- Safely `unwrap` the `optional` first by using something like `guard let`, `if let`, `guard let as?`, `if let as?`, and `optional chaining`.
 
 ```swift
     // UNWRAP
@@ -637,95 +633,103 @@ or
     delegate?.someMethod()
 ```
 
-4.2 Pyramid of Doom
-- using if let statement avoid Pyramid of Doom
+### Pyramid of Doom <a name="optionals-pyramid-doom"></a>
 
-// WRONG
-if let value1 = dict[key1] as? String {
-let value2 = dict[key2] as? String {
-let value3 = dict[key3] as? String {
-let value4 = dict[key4] as? String {
+- when using `if let` statement avoid `Pyramid of Doom`.
 
-let object = MyClass(value1: value1, value2: value2, value3: value3, value4: value4)
+```swift
+    // NOT PREFERRED
+    if let value1 = dict[key1] as? String {
+            let value2 = dict[key2] as? String {
+                let value3 = dict[key3] as? String {
+                    let value4 = dict[key4] as? String {
 
-}
-}
-}
-}
+                        let object = MyClass(value1: value1, value2: value2, value3: value3, value4: value4)
 
-// RIGHT
-if 
-let value1 = dict[key1] as? String,
-let value2 = dict[key2] as? String,
-let value3 = dict[key3] as? String,
-let value4 = dict[key4] as? String {
+                    }
+                }
+            }
+        }
 
-let object = MyClass(value1: value1, value2: value2, value3: value3, value4: value4)
 
-}
+    // PREFERRED
+    if 
+       let value1 = dict[key1] as? String,
+       let value2 = dict[key2] as? String,
+       let value3 = dict[key3] as? String,
+       let value4 = dict[key4] as? String {
 
-4.3 Unwrapping Multiple Optionals:
-- when unwrap multiple optionals put each variable in a new line, followed by a ',' except for the last line where should be placed the 'else {' for guard statement, or '{' for if and while statements
+            let object = MyClass(value1: value1, value2: value2, value3: value3, value4: value4)
 
-// WRONG
-guard let value1 = value1,
-let value2 = value2,
-let value3 = value3,
-else {
-return
-}
+    }
+```
 
-if let value1 = value1,
-let value2 = value2,
-let value3 = value3,
-{
-// Code
-}
+### Unwrapping Multiple Optionals <a name="optionals-unwrapping-multiple-optionals"></a>
+- when `unwrap multiple optionals` put each variable in a new line, followed by a `,` except for the last line where should be placed the `else {` for `guard statement`, or `{` for `if` and `while` statements.
 
-// WRONG
-guard let constantOne = valueOne, constantTwo = valueTwo, constantThree = valueThree else {
-return
-}
+```swift
+    // NOT PREFERRED
+    guard let value1 = value1,
+        let value2 = value2,
+        let value3 = value3,
+    else {
+        return
+    }
+    
+    if let value1 = value1,
+        let value2 = value2,
+        let value3 = value3,
+        {
+            // ...
+        }
+        
+    // NOT PREFERRED
+    guard let constantOne = valueOne, constantTwo = valueTwo, constantThree = valueThree else {
+        return
+    }
+    
+    if let constantOne = valueOne, let constantTwo = valueTwo, let constantThree = valueThree {
+        // ...
+    }
 
-if let constantOne = valueOne, let constantTwo = valueTwo, let constantThree = valueThree {
-// Code
-}
+    // PREFERRED
+    guard
+        let value1 = value1,
+        let value2 = value2,
+        let value3 = value3 else {
+            return
+    }
+    
+    if
+        let value1 = value1,
+        let value2 = value2,
+        let value3 = value3 {
+            // ...
+    }
+```
 
-// RIGHT
-guard
-let value1 = value1,
-let value2 = value2,
-let value3 = value3 else {
-return
-}
+### Error Handling <a name="optionals-error-handling"></a>
+- Avoid using the `forced-try` expression, more safely `handle errors` using a `do` statement along with `try` and `catch`.
 
-if
-let value1 = value1,
-let value2 = value2,
-let value3 = value3 {
-// Code
-}
+```swift
+    // NOT PREFERRED
+    func someMethod() {
+        // ...
+        let result = try! decoder.decode(Class.self, from: data)
+        // ...
+    }
 
-4.4 Error Handling            
-- Avoid using the forced-try expression, more safely handle errors using a do statement along with try and catch:
-
-// WRONG
-func someMethod() {
-...
-let result = try! decoder.decode(Class.self, from: data)
-...
-}
-
-// RIGHT
-func someMethod() {
-do {
-...
-let result = try! decoder.decode(Class.self, from: data)
-...
-} catch {
-print(error)
-}
-}
+    // PREFERRED
+    func someMethod() {
+        do {
+            // ...
+            let result = try! decoder.decode(Class.self, from: data)
+            // ...
+        } catch {
+            print(error)
+        }
+    }
+```
 
 ## References
 
