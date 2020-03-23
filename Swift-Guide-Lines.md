@@ -15,6 +15,11 @@
 - [Definitions](#style-definitions)
 - [Spacing](#style-spacing)
 - [Indentation](#style-indentation)
+- [Optionals](#optionals)
+- [Force Unwrapping](#optionals-force-unwrapping)
+- [Pyramid of Doom](#optionals-pyramid-doom)
+- [Unwrapping Multiple Optionals](#optionals-unwrapping-multiple-optionals)
+- [Error Handling](#optionals-error-handling)
 - [References](#references)
 
 ## General
@@ -574,6 +579,151 @@ or
                         ? someMethod(param1: "string1", param2: "string2") 
                         : otherMethod(param1: "string1", param2: "string2") 
 ```
+
+## Optionals:
+
+- [Pyramid of Doom](#optionals-pyramid-doom)
+- [Unwrapping Multiple Optionals](#optionals-unwrapping-multiple-optionals)
+- [Error Handling](#optionals-error-handling)
+
+### Force Unwrapping <a name="optionals-force-unwrapping"></a>
+
+- Avoid `force unwrapping` optionals by using `!` or `as!`
+- Safely unwrap the optional first by using something like `guard let`, `if let`, `guard let as?`, `if let as?`, and `optional chaining`
+
+   - Unwrap:
+
+```swift
+    // NOT PREFERRED
+    func someMethod() {
+        let url = URL(string: "http://www.example.com/")! 
+        UIApplication.shared.open(url)
+    } 
+
+    // PREFERRED
+    func someMethod() {
+        guard let url = URL(string: "http://www.example.com/") else {
+            return
+        }
+    }
+```
+    - Downcast:
+
+```swift
+    // NOT PREFERRED
+    func someMethod() {
+        let downcastedObj = object as! Subclass
+        otherObject.property = downcastedObj
+    }
+
+    // PREFERRED
+    func someMethod() {
+        guard let downcastedObj = object as? Subclass else {
+            return
+            }
+
+        otherObject.property = downcastedObj
+    }
+```
+    - Optional chaining:
+
+```swift
+    // NOT PREFERRED
+    delegate!.someMethod()
+
+    // PREFERRED
+    delegate?.someMethod()
+```
+
+4.2 Pyramid of Doom
+- using if let statement avoid Pyramid of Doom
+
+// WRONG
+if let value1 = dict[key1] as? String {
+let value2 = dict[key2] as? String {
+let value3 = dict[key3] as? String {
+let value4 = dict[key4] as? String {
+
+let object = MyClass(value1: value1, value2: value2, value3: value3, value4: value4)
+
+}
+}
+}
+}
+
+// RIGHT
+if 
+let value1 = dict[key1] as? String,
+let value2 = dict[key2] as? String,
+let value3 = dict[key3] as? String,
+let value4 = dict[key4] as? String {
+
+let object = MyClass(value1: value1, value2: value2, value3: value3, value4: value4)
+
+}
+
+4.3 Unwrapping Multiple Optionals:
+- when unwrap multiple optionals put each variable in a new line, followed by a ',' except for the last line where should be placed the 'else {' for guard statement, or '{' for if and while statements
+
+// WRONG
+guard let value1 = value1,
+let value2 = value2,
+let value3 = value3,
+else {
+return
+}
+
+if let value1 = value1,
+let value2 = value2,
+let value3 = value3,
+{
+// Code
+}
+
+// WRONG
+guard let constantOne = valueOne, constantTwo = valueTwo, constantThree = valueThree else {
+return
+}
+
+if let constantOne = valueOne, let constantTwo = valueTwo, let constantThree = valueThree {
+// Code
+}
+
+// RIGHT
+guard
+let value1 = value1,
+let value2 = value2,
+let value3 = value3 else {
+return
+}
+
+if
+let value1 = value1,
+let value2 = value2,
+let value3 = value3 {
+// Code
+}
+
+4.4 Error Handling            
+- Avoid using the forced-try expression, more safely handle errors using a do statement along with try and catch:
+
+// WRONG
+func someMethod() {
+...
+let result = try! decoder.decode(Class.self, from: data)
+...
+}
+
+// RIGHT
+func someMethod() {
+do {
+...
+let result = try! decoder.decode(Class.self, from: data)
+...
+} catch {
+print(error)
+}
+}
 
 ## References
 
