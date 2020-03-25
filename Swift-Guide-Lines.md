@@ -1,4 +1,4 @@
-# Swift-Guide-Lines
+# Swift-Style-Guide
 
 ## Table of Contents
 
@@ -22,6 +22,13 @@
     - [Error Handling](#optionals-error-handling)
 - [Access Modifiers](#access-modifiers)
 - [Loops](#loops)
+- [Delegates](#delegates)
+- [Organization](#organization)
+    - [Constants](#organization-constants)
+    - [Init Method](#organization-init)
+    - [Decoupling in methods](#organization-decoupling)
+    - [Protocols](#organization-protocols)
+    - [Class Organization](#organization-class-organization)
 - [References](#references)
 
 ## General
@@ -750,9 +757,308 @@ or
 - Don't repeat the access modifier when `overriding` a method.
 
 ## Loops
+
 - Avoid the use of `forEach` except for simple `one line closures`. Prefer the of the `enumerated()` function to loop over a sequence.
 - Use `map` when transforming`Arrays`, `compactMap` for `Arrays of Optionals` or `flatMap` for `Arrays of Arrays`.
 - If you are not performing a transform, or if there are side effects do not use `map/flatmap`; use a `for in loop` instead. [see more](http://www.mokacoding.com/blog/when-to-use-map-flatmap-for/)
+
+## Delegates
+
+- When creating custom `delegate` methods, an `unnamed first parameter` should be the delegate source. 
+
+```swift
+    class ScreenViewController: UIViewController {
+
+    }
+
+    // NOT PREFERRED
+    protocol ViewControllerDelegate: class {
+        func didSelectButtonA(name: String)
+        func shouldReload() -> Bool
+    }
+
+    // PREFERRED
+    protocol ScreenViewControllerDelegate: class {
+        func didSelectButtonA(_ screenViewController: ScreenViewController, name: String)
+        func shouldReload(_ screenViewController: ScreenViewController) -> Bool
+    }
+```
+
+## Organization:
+
+### Constants <a name="organization-constants"></a>
+
+- All `constants` that are instance-independent should be `static`. All such static constants should be placed in a `separate extension` of their `class`, `struct`, or `enum` place on top of the class definition
+
+```swift
+    class ScreenViewController: UIViewController {
+
+    }
+
+    // NOT PREFERRED
+    class ClassA {
+        // MARK: - Constants
+        static let constant1 = "constant1"
+        static let constant2 = 3
+
+        // ...
+    }
+
+    // PREFERRED
+    extention ClassA {
+        // MARK: - Constants
+        static let constant1 = "constant1"
+        static let constant2 = 3
+    }
+
+    class ClassA {
+        // ...
+    }
+```
+
+### Init Method <a name="organization-init"></a>
+
+- Prefer initializing properties at init time whenever possible, rather than using implicitly unwrapped optionals (exception UIViewController's view property)
+
+/ WRONG
+class MyClass {
+
+init() {
+super.init()
+property1 = "property"
+}
+
+var property1: String!
+}
+
+// RIGHT
+class MyClass {
+
+init() {
+property1 = "property"
+super.init()
+}
+
+var property1: String
+}
+
+### Decoupling in methods<a name="organization-decoupling"></a>
+
+- Avoid performing any meaningful or time-intensive work in init(). Extract that logic in one or more separate private methods.
+- Extract complex property observers into separate private methods.
+
+// WRONG
+class UIButton {
+var isLoading: Bool  {
+didSet {
+guard oldValue != isLoading else {
+return
+}
+
+// Bunch of related statements.
+}
+}
+}
+
+// RIGHT
+class UIButton {
+var isLoading: Bool  {
+didSet { isLoadingDidUpdate(from: oldValue) }
+}
+
+private func isLoadingDidUpdate(from oldValue: Bool) {
+guard oldValue != isLoading else {
+return
+}
+
+// Bunch of related statements.
+}
+}
+
+- Extract complex callback blocks into separate private methods:
+
+//WRONG
+class ClassA {
+
+func someMethod(completion: () -> Void) {
+API.someAsyncMethod() { [weak self] param in
+if let self = self {
+// Processing and side effects
+}
+completion()
+}
+}
+}
+
+// RIGHT
+class MyClass {
+
+func request(completion: () -> Void) {
+API.someAsyncMethod() { [weak self] param in
+guard let self = self else { return }
+self.separatPrivateMethod(param)
+completion()
+}
+}
+
+func separatPrivateMethod(param: SomeClass) {
+// Processing and side effects
+}
+}
+
+- ### Protocols<a name="organization-protocols"></a>
+
+- When an object conform to a prorocol, use a separate extension for the implementation of protocol methods and add a // MARK: - ProtocolName comment to keep things well organized.
+
+// WRONG
+class MyViewcontroller: UIViewController, UITableViewDataSource, UITableViewDelegate {
+// All methods
+}
+
+// RIGHT
+class MyViewcontroller: UIViewController {
+...
+}
+
+// MARK: - UITableViewDataSource
+extension MyViewcontroller: UITableViewDataSource {
+// Table view data source methods
+}
+
+// MARK: - UITableViewDelegate
+extension MyViewcontroller: UITableViewDelegate {
+// Scroll view delegate methods
+}    
+
+- ### Class Organization<a name="organization-class-organization"></a>
+
+- Separate a class fallowing the examples
+
+extention ClassA {
+// MARK: - Constants
+static let constant1 = "constant1"
+static let constant2 = 3
+}
+
+class ClassA: SuperClass {
+// MARK: - Init
+init() {
+...
+}
+
+init(param1: String, param2: String) {
+...
+}
+
+// MARK: - Public property
+var property1: String = ""
+var property2: [String] = []
+...
+
+// MARK: - Private property
+private var property3: String = ""
+private var property4: [String] = []
+...
+
+// MARK: - Override property
+override var overrideProperty: String {
+...
+}
+
+override var overrideProperty1: String {
+...
+}
+
+// In case of overriding life cycle methods 
+// MARK: - Life Cycle
+override func viewDidLoad() {
+super.viewDidLoad()
+...
+}   
+
+override func viewWillAppear(_ animated: Bool) {
+super.viewWillAppear(animated)             
+...
+}
+
+deinit {
+...
+}
+
+// MARK: - Override Method 
+override func overrideMethod() {
+...
+}
+
+override func overrideMethod1() {
+...
+}
+
+// MARK: - Public Method 
+func someMethod() {
+...
+}
+
+func someMethod1() {
+...
+}
+
+func someMethod3() {
+...
+}
+
+// MARK: - Private Method - Description
+private func someMethod() {
+...
+}
+
+private func someMethod1() {
+...
+}
+
+private func someMethod2() {
+...
+}
+
+// MARK: - Private Method - Description1
+private func someMethod3() {
+...
+}
+
+private func someMethod4() {
+...
+}
+
+private func someMethod5() {
+...
+}
+
+// MARK: - Private Method - Description1
+...
+
+}
+
+extention ClassA: Protocol1 {
+func someProtocolMethod() {
+someHelperMethod()
+}
+
+private func someHelperMethod() {
+...
+}
+
+func someProtocolMethod1() {
+someHelperMethod1()
+}
+
+private func someHelperMethod1() {
+...
+}
+}
+
+extention ClassA: Protocol2 {
+...
+}
 
 ## References
 
