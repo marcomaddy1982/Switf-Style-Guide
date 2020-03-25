@@ -947,7 +947,7 @@ or
 - Separate a class fallowing the example
 
 ```swift
-    extention ClassA {
+    extension ClassA {
         // MARK: - Constants
         static let constant1 = "constant1"
         static let constant2 = 3
