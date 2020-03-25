@@ -820,245 +820,259 @@ or
 
 - Prefer initializing properties at init time whenever possible, rather than using implicitly unwrapped optionals (exception UIViewController's view property)
 
-/ WRONG
-class MyClass {
+```swift
+    class ScreenViewController: UIViewController {
 
-init() {
-super.init()
-property1 = "property"
-}
+    }
 
-var property1: String!
-}
+    // NOT PREFERRED
+    class MyClass {
 
-// RIGHT
-class MyClass {
+        init() {
+            super.init()
+            property1 = "property"
+        }
 
-init() {
-property1 = "property"
-super.init()
-}
+        var property1: String!
+    }
 
-var property1: String
-}
+    // PREFERRED
+    class MyClass {
+
+        init() {
+            property1 = "property"
+            super.init()
+        }
+
+        var property1: String
+    }
+```
 
 ### Decoupling in methods<a name="organization-decoupling"></a>
 
-- Avoid performing any meaningful or time-intensive work in init(). Extract that logic in one or more separate private methods.
+- Avoid performing any meaningful or time-intensive work in `init()`. Extract that logic in one or more separate private methods.
 - Extract complex property observers into separate private methods.
 
-// WRONG
-class UIButton {
-var isLoading: Bool  {
-didSet {
-guard oldValue != isLoading else {
-return
-}
+```swift
+    // NOT PREFERRED
+    class Button {
+        var isLoading: Bool  {
+            didSet {
+                guard oldValue != isLoading else {
+                    return
+                }
 
-// Bunch of related statements.
-}
-}
-}
+                // Bunch of related statements.
+            }
+        }
+    }
 
-// RIGHT
-class UIButton {
-var isLoading: Bool  {
-didSet { isLoadingDidUpdate(from: oldValue) }
-}
+    // PREFERRED
+    class Button {
+        var isLoading: Bool  {
+            didSet { isLoadingDidUpdate(from: oldValue) }
+        }
 
-private func isLoadingDidUpdate(from oldValue: Bool) {
-guard oldValue != isLoading else {
-return
-}
+        private func isLoadingDidUpdate(from oldValue: Bool) {
+            guard oldValue != isLoading else {
+                return
+            }
 
-// Bunch of related statements.
-}
-}
+        // Bunch of related statements.
+        }
+    }
+```
 
 - Extract complex callback blocks into separate private methods:
 
-//WRONG
-class ClassA {
+```swift
+    // NOT PREFERRED
+    class ClassA {
 
-func someMethod(completion: () -> Void) {
-API.someAsyncMethod() { [weak self] param in
-if let self = self {
-// Processing and side effects
-}
-completion()
-}
-}
-}
+        func someMethod(completion: () -> Void) {
+            API.someAsyncMethod() { [weak self] param in
+                if let self = self {
+                    // Processing and side effects
+                }
+                completion()
+            }
+        }
+    }
 
-// RIGHT
-class MyClass {
+    // PREFERRED
+    class MyClass {
 
-func request(completion: () -> Void) {
-API.someAsyncMethod() { [weak self] param in
-guard let self = self else { return }
-self.separatPrivateMethod(param)
-completion()
-}
-}
+        func request(completion: () -> Void) {
+            API.someAsyncMethod() { [weak self] param in
+                guard let self = self else { return }
+                self.separatPrivateMethod(param)
+                completion()
+            }
+        }
 
-func separatPrivateMethod(param: SomeClass) {
-// Processing and side effects
-}
-}
+        private func separatPrivateMethod(param: SomeClass) {
+            // Processing and side effects
+        }
+    }
+```
 
 - ### Protocols<a name="organization-protocols"></a>
 
-- When an object conform to a prorocol, use a separate extension for the implementation of protocol methods and add a // MARK: - ProtocolName comment to keep things well organized.
+- When an object conform to a prorocol, use a separate `extension` for the implementation of protocol methods and add a  `// MARK: - ProtocolName` comment to keep things well organized.
 
-// WRONG
-class MyViewcontroller: UIViewController, UITableViewDataSource, UITableViewDelegate {
-// All methods
-}
+```swift
+    // NOT PREFERRED
+    class MyViewcontroller: UIViewController, UITableViewDataSource, UITableViewDelegate {
+        // All methods
+    }
 
-// RIGHT
-class MyViewcontroller: UIViewController {
-...
-}
+    // PREFERRED
+    class MyViewcontroller: UIViewController {
+        // ...
+    }
 
-// MARK: - UITableViewDataSource
-extension MyViewcontroller: UITableViewDataSource {
-// Table view data source methods
-}
+    // MARK: - UITableViewDataSource
+    extension MyViewcontroller: UITableViewDataSource {
+        // Table view data source methods
+    }
 
-// MARK: - UITableViewDelegate
-extension MyViewcontroller: UITableViewDelegate {
-// Scroll view delegate methods
-}    
+    // MARK: - UITableViewDelegate
+    extension MyViewcontroller: UITableViewDelegate {
+        // Scroll view delegate methods
+    }    
+```
 
 - ### Class Organization<a name="organization-class-organization"></a>
 
-- Separate a class fallowing the examples
+- Separate a class fallowing the example
 
-extention ClassA {
-// MARK: - Constants
-static let constant1 = "constant1"
-static let constant2 = 3
-}
+```swift
+    extention ClassA {
+        // MARK: - Constants
+        static let constant1 = "constant1"
+        static let constant2 = 3
+    }
 
-class ClassA: SuperClass {
-// MARK: - Init
-init() {
-...
-}
+    class ClassA: SuperClass {
+        // MARK: - Init
+        init() {
+            // ...
+        }
 
-init(param1: String, param2: String) {
-...
-}
+        init(param1: String, param2: String) {
+            // ...
+        }
 
-// MARK: - Public property
-var property1: String = ""
-var property2: [String] = []
-...
+        // MARK: - Public property
+        var property1: String = ""
+        var property2: [String] = []
+        // ...
 
-// MARK: - Private property
-private var property3: String = ""
-private var property4: [String] = []
-...
+        // MARK: - Private property
+        private var property3: String = ""
+        private var property4: [String] = []
+        // ...
 
-// MARK: - Override property
-override var overrideProperty: String {
-...
-}
+        // MARK: - Override property
+        override var overrideProperty: String {
+            // ...
+        }
 
-override var overrideProperty1: String {
-...
-}
+        override var overrideProperty1: String {
+            // ...
+        }
 
-// In case of overriding life cycle methods 
-// MARK: - Life Cycle
-override func viewDidLoad() {
-super.viewDidLoad()
-...
-}   
+        // In case of overriding life cycle methods 
+        // MARK: - Life Cycle
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            // ...
+        }   
 
-override func viewWillAppear(_ animated: Bool) {
-super.viewWillAppear(animated)             
-...
-}
+        override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)             
+            // ...
+        }
 
-deinit {
-...
-}
+        deinit {
+            // ...
+        }
 
-// MARK: - Override Method 
-override func overrideMethod() {
-...
-}
+        // MARK: - Override Method 
+        override func overrideMethod() {
+            // ...
+        }
 
-override func overrideMethod1() {
-...
-}
+        override func overrideMethod1() {
+            // ...
+        }
 
-// MARK: - Public Method 
-func someMethod() {
-...
-}
+        // MARK: - Public Method 
+        func someMethod() {
+            // ...
+        }
 
-func someMethod1() {
-...
-}
+        func someMethod1() {
+            // ...
+        }
 
-func someMethod3() {
-...
-}
+        func someMethod3() {
+            // ...
+        }
 
-// MARK: - Private Method - Description
-private func someMethod() {
-...
-}
+        // MARK: - Private Method - Description
+        private func someMethod() {
+            // ...
+        }
 
-private func someMethod1() {
-...
-}
+        private func someMethod1() {
+            // ...
+        }
 
-private func someMethod2() {
-...
-}
+        private func someMethod2() {
+            // ...
+        }
 
-// MARK: - Private Method - Description1
-private func someMethod3() {
-...
-}
+        // MARK: - Private Method - Description1
+        private func someMethod3() {
+            // ...
+        }
 
-private func someMethod4() {
-...
-}
+        private func someMethod4() {
+            // ...
+        }
 
-private func someMethod5() {
-...
-}
+        private func someMethod5() {
+            // ...
+        }
 
-// MARK: - Private Method - Description1
-...
+        // MARK: - Private Method - Description1
+            // ...
 
-}
+        }
 
-extention ClassA: Protocol1 {
-func someProtocolMethod() {
-someHelperMethod()
-}
+        extention ClassA: Protocol1 {
+            func someProtocolMethod() {
+                someHelperMethod()
+            }
 
-private func someHelperMethod() {
-...
-}
+            private func someHelperMethod() {
+                // ...
+            }
 
-func someProtocolMethod1() {
-someHelperMethod1()
-}
+            func someProtocolMethod1() {
+                someHelperMethod1()
+            }
 
-private func someHelperMethod1() {
-...
-}
-}
+            private func someHelperMethod1() {
+                // ...
+            }
+        }
 
-extention ClassA: Protocol2 {
-...
-}
+        extention ClassA: Protocol2 {
+            // ...
+        }  
+```
 
 ## References
 
