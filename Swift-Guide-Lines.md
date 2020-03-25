@@ -1050,28 +1050,29 @@ or
             // ...
 
         }
-
-        extention ClassA: Protocol1 {
-            func someProtocolMethod() {
-                someHelperMethod()
-            }
-
-            private func someHelperMethod() {
-                // ...
-            }
-
-            func someProtocolMethod1() {
-                someHelperMethod1()
-            }
-
-            private func someHelperMethod1() {
-                // ...
-            }
+    }
+    
+    extension ClassA: Protocol1 {
+        func someProtocolMethod() {
+            someHelperMethod()
         }
-
-        extention ClassA: Protocol2 {
+        
+        private func someHelperMethod() {
             // ...
-        }  
+        }
+        
+        func someProtocolMethod1() {
+            someHelperMethod1()
+        }
+        
+        private func someHelperMethod1() {
+            // ...
+        }
+    }
+    
+    extension ClassA: Protocol2 {
+        // ...
+    } 
 ```
 
 ## References
